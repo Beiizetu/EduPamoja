@@ -40,10 +40,10 @@ export const GroupListSlider = ({
           {!register ? (
             route ? (
               <Link href={`/explore/${item.path}`}>
-                <GroupListItem {...item} selected={selected} />
+                <GroupListItem {...item} path={item.path} selected={selected} />
               </Link>
             ) : (
-              <GroupListItem {...item} />
+              <GroupListItem {...item} path={item.path} />
             )
           ) : (
             i > 0 && (
@@ -56,7 +56,7 @@ export const GroupListSlider = ({
                     value={item.path}
                     {...register("category")}
                   />
-                  <GroupListItem {...item} selected={selected} />
+                  <GroupListItem {...item} path={item.path} selected={selected} />
                 </span>
               </Label>
             )
