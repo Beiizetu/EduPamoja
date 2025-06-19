@@ -16,7 +16,10 @@ export default clerkMiddleware(async (auth, req) => {
 
   // Protect routes starting with /group
   if (isProtectedRoute(req)) {
-    auth().protect()
+    const { userId } = auth()
+    if (!userId) {
+      return NextResponse.redirect(new URL('/sign-in', req.url))
+    }
   }
 
   // Check if it's a custom domain AND the path is a group path
