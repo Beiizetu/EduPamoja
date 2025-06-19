@@ -129,7 +129,8 @@ export const useAuthSignUp = () => {
       if (completeSignUp.status !== "complete") {
         setCreating(false)
         return toast("Error", {
-          description: "Verification failed. Please check the code and try again",
+          description:
+            "Verification failed. Please check the code and try again",
         })
       }
 

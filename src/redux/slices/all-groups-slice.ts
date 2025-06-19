@@ -10,7 +10,7 @@ interface AllGroupsState {
 const initialState: AllGroupsState = {
   groups: [],
   loading: false,
-  error: null
+  error: null,
 }
 
 export const allGroupsSlice = createSlice({
@@ -29,8 +29,8 @@ export const allGroupsSlice = createSlice({
     setError: (state, action) => {
       state.loading = false
       state.error = action.payload
-    }
-  }
+    },
+  },
 })
 
 export const { setAllGroups, setLoading, setError } = allGroupsSlice.actions

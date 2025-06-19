@@ -26,14 +26,18 @@ const ExplorePageContent = ({ layout, category, showAllGroups }: Props) => {
   const { isSearching, data, status, debounce } = useAppSelector(
     (state) => state.searchReducer,
   )
-  const allGroups = useAppSelector((state) => state.allGroupsReducer?.groups || [])
+  const allGroups = useAppSelector(
+    (state) => state.allGroupsReducer?.groups || [],
+  )
 
   useEffect(() => {
     const fetchAllGroups = async () => {
       try {
         const response = await onGetAllPublicGroups()
         // Ensure we always have an array, even if response is an object
-        const groups = Array.isArray(response) ? response : response?.groups || []
+        const groups = Array.isArray(response)
+          ? response
+          : response?.groups || []
         dispatch(setAllGroups(groups))
       } catch (error) {
         console.error("Failed to fetch all groups:", error)

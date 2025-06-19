@@ -13,23 +13,23 @@ type PostFeedProps = {
 
 export const PostFeed = ({ channelid, userid }: PostFeedProps) => {
   const { data } = useChannelPage(channelid)
-  
+
   if (!data) {
     return null // or return a loading/error state
   }
 
   const { posts } = data
-  
+
   return posts && posts.length > 0 ? (
     <>
       {posts.map((post) => (
         <PostCard
           key={post.id}
           channelname={post.channel.name}
-          title={post.title || ''}
+          title={post.title || ""}
           html={post.content}
           username={`${post.author.firstname} ${post.author.lastname}`}
-          userimage={post.author.image || ''}
+          userimage={post.author.image || ""}
           likes={post._count.likes}
           comments={post._count.comments}
           postid={post.id}

@@ -18,8 +18,8 @@ export const PricingSection = (props: Props) => {
           Pricing Plans That Fit Your Right
         </GradientText>
         <p className="text-sm md:text-center text-left text-muted-foreground">
-          EduPamoja is a vibrant online community platform that empowers people to
-          connect, <br className="hidden md:block" />
+          EduPamoja is a vibrant online community platform that empowers people
+          to connect, <br className="hidden md:block" />
           collaborate, and cultivate meaningful relationships
         </p>
       </BackdropGradient>

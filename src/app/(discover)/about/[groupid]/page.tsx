@@ -1,3 +1,4 @@
+import type { PageProps } from "@/types/next"
 import { onAuthenticatedUser } from "@/actions/auth"
 import { onGetGroupInfo } from "@/actions/groups"
 import { onGetActiveSubscription } from "@/actions/payments"
@@ -9,39 +10,42 @@ import {
 import AboutGroup from "../_components/about"
 import GroupSideWidget from "@/components/global/group-side-widget"
 
-type Props = {
-  params: {
-    groupid: string
-  }
+interface GroupPageParams {
+  groupid: string
 }
 
-const Page = async ({ params }: Props) => {
+export default async function Page({
+  params,
+  searchParams = {},
+}: PageProps<GroupPageParams>) {
   const query = new QueryClient()
 
-  await query.prefetchQuery({
-    queryKey: ["about-group-info"],
-    queryFn: () => onGetGroupInfo(params.groupid),
-  })
+  await Promise.all([
+    query.prefetchQuery({
+      queryKey: ["about-group-info", params.groupid],
+      queryFn: () => onGetGroupInfo(params.groupid),
+    }),
+    query.prefetchQuery({
+      queryKey: ["active-subscription", params.groupid],
+      queryFn: () => onGetActiveSubscription(params.groupid),
+    }),
+  ])
 
-  await query.prefetchQuery({
-    queryKey: ["active-subscription"],
-    queryFn: () => onGetActiveSubscription(params.groupid),
-  })
-
-  const userid = await onAuthenticatedUser()
+  const user = await onAuthenticatedUser()
+  if (!user) {
+    throw new Error("User not authenticated")
+  }
 
   return (
     <HydrationBoundary state={dehydrate(query)}>
       <div className="pt-36 pb-10 container grid grid-cols-1 lg:grid-cols-3 gap-x-10">
         <div className="col-span-1 lg:col-span-2">
-          <AboutGroup userid={userid.id!} groupid={params.groupid} />
+          <AboutGroup userid={user.id} groupid={params.groupid} />
         </div>
         <div className="col-span-1 relative">
-          <GroupSideWidget userid={userid.id} groupid={params.groupid} />
+          <GroupSideWidget userid={user.id} groupid={params.groupid} />
         </div>
       </div>
     </HydrationBoundary>
   )
 }
-
-export default Page

@@ -20,7 +20,9 @@ export const GroupListItem = ({
     <div
       className={cn(
         "flex gap-3 items-center py-2 px-4 rounded-2xl border-2 cursor-pointer",
-        selected === path ? "bg-white text-black" : "bg-themeGray border-themeGray",
+        selected === path
+          ? "bg-white text-black"
+          : "bg-themeGray border-themeGray",
       )}
     >
       {icon}

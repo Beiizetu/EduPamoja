@@ -1,3 +1,7 @@
+type PageProps = {
+  params: Record<string, string>
+  searchParams?: Record<string, string | string[] | undefined>
+}
 import { onGetExploreGroup } from "@/actions/groups"
 import {
   dehydrate,
@@ -10,6 +14,7 @@ const ExploreCategoryPage = async ({
   params,
 }: {
   params: { category: string }
+  searchParams?: Record<string, string | string[] | undefined>
 }) => {
   const query = new QueryClient()
 

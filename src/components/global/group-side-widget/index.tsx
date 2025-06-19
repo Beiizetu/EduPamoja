@@ -12,7 +12,7 @@ type Props = {
 }
 
 const GroupSideWidget = ({ groupid, light, userid }: Props) => {
-  const { group } = useGroupInfo()
+  const { group } = useGroupInfo(groupid || "")
 
   return (
     <Card

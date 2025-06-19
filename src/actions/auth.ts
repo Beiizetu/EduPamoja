@@ -18,7 +18,7 @@ export const onAuthenticatedUser = async () => {
         lastname: true,
       },
     })
-    
+
     if (!user) {
       // Create user if they exist in Clerk but not in DB
       const newUser = await client.user.create({
@@ -32,9 +32,9 @@ export const onAuthenticatedUser = async () => {
           id: true,
           firstname: true,
           lastname: true,
-        }
+        },
       })
-      
+
       return {
         status: 200,
         id: newUser.id,
@@ -42,7 +42,7 @@ export const onAuthenticatedUser = async () => {
         username: `${newUser.firstname} ${newUser.lastname}`,
       }
     }
-    
+
     return {
       status: 200,
       id: user.id,
@@ -53,7 +53,7 @@ export const onAuthenticatedUser = async () => {
     console.error("Authentication error:", error)
     return {
       status: 400,
-      error: error instanceof Error ? error.message : "Unknown error"
+      error: error instanceof Error ? error.message : "Unknown error",
     }
   }
 }

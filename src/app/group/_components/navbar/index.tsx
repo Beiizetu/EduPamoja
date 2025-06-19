@@ -18,7 +18,7 @@ export const Navbar = async ({ groupid, userid }: NavbarProps) => {
   try {
     user = await currentUser()
   } catch (error) {
-    console.error('Failed to fetch user:', error)
+    console.error("Failed to fetch user:", error)
   }
   return (
     <div className="bg-[#1A1A1D] py-2 px-3 md:px-7 md:py-5 flex gap-5 justify-between md:justify-end items-center">
@@ -41,7 +41,7 @@ export const Navbar = async ({ groupid, userid }: NavbarProps) => {
       </Link>
       <UserWidget
         userid={userid}
-        image={user?.imageUrl || '/default-avatar.png'}
+        image={user?.imageUrl || "/default-avatar.png"}
         groupid={groupid}
       />
     </div>

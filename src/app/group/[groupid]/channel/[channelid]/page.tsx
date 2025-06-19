@@ -14,8 +14,9 @@ import Menu from "../../_components/group-navbar"
 import CreateNewPost from "./_components/create-post"
 import { PostFeed } from "./_components/post-feed"
 
-type Props = {
-  params: { channelid: string; groupid: string }
+type ChannelPageParams = {
+  channelid: string
+  groupid: string
 }
 
 const GroupChannelPage = async ({ params }: Props) => {
@@ -23,15 +24,21 @@ const GroupChannelPage = async ({ params }: Props) => {
   const user = await currentUser()
   const authUser = await onAuthenticatedUser()
 
-  await client.prefetchQuery({
-    queryKey: ["channel-info"],
-    queryFn: () => onGetChannelInfo(params.channelid),
-  })
+  try {
+    await client.prefetchQuery({
+      queryKey: ["about-group-info"],
+      queryFn: () => onGetGroupInfo(params.groupid),
+    })
 
-  await client.prefetchQuery({
-    queryKey: ["about-group-info"],
-    queryFn: () => onGetGroupInfo(params.groupid),
-  })
+    await client.prefetchQuery({
+      queryKey: ["channel-info"],
+      queryFn: () => onGetChannelInfo(params.channelid),
+    })
+  } catch (error) {
+    console.error("Failed to prefetch channel data:", error)
+    // Errors are handled by React Query's error boundaries
+    // and will be available in the components via useQuery
+  }
 
   return (
     <HydrationBoundary state={dehydrate(client)}>

@@ -5,7 +5,6 @@ import {
   onGetAllUserMessages,
   onGetDomainConfig,
   onGetExploreGroup,
-  onGetGroupInfo,
   onSearchGroups,
   onSendMessage,
   onUpDateGroupSettings,
@@ -298,8 +297,15 @@ export const useGroupSettings = (groupid: string) => {
   }
 }
 export const useGroupList = (query: string) => {
-  const { data } = useQuery({
-    queryKey: [query],
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["groups-list", query],
+    queryFn: async () => {
+      const response = await onGetAllPublicGroups()
+      if (response.status !== 200) {
+        throw new Error("Failed to fetch groups")
+      }
+      return response
+    },
   })
 
   const dispatch: AppDispatch = useDispatch()
@@ -308,12 +314,19 @@ export const useGroupList = (query: string) => {
     dispatch(onClearList({ data: [] }))
   }, [])
 
-  const { groups, status } = data as {
-    groups: GroupStateProps[]
-    status: number
+  if (isLoading) {
+    return { groups: [], status: 200, isLoading: true }
   }
 
-  return { groups, status }
+  if (error || !data) {
+    return { groups: [], status: 400, error: error?.message }
+  }
+
+  return {
+    groups: data.groups || [],
+    status: data.status,
+    isLoading: false,
+  }
 }
 
 export const useExploreSlider = (query: string, paginate: number) => {
@@ -339,9 +352,12 @@ export const useExploreSlider = (query: string, paginate: number) => {
   return { refetch, isFetching, data, onLoadSlider }
 }
 
-export const useGroupInfo = () => {
+import { onGetGroupInfo } from "../../actions/groups"
+
+export const useGroupInfo = (groupId: string) => {
   const { data } = useQuery({
-    queryKey: ["about-group-info"],
+    queryKey: ["about-group-info", groupId],
+    queryFn: () => (groupId ? onGetGroupInfo(groupId) : null),
   })
 
   const router = useRouter()

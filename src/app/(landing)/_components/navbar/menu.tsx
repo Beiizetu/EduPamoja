@@ -12,12 +12,19 @@ type MenuProps = {
 
 const Menu = ({ orientation }: MenuProps) => {
   const { section, onSetSection } = useNavigation()
+
+  // Ensure menu items have unique IDs
+  const menuItems = EDUPAMOJA_CONSTANTS.landingPageMenu.map((item) => ({
+    ...item,
+    id: `${item.id}-${orientation}`, // Append orientation to ensure uniqueness
+  }))
+
   switch (orientation) {
     case "desktop":
       return (
         <Card className="bg-themeGray border-themeGray bg-clip-padding backdrop--blur__safari backdrop-filter backdrop-blur-2xl bg-opacity-60 p-1 lg:flex hidden rounded-xl">
           <CardContent className="p-0 flex gap-2">
-            {EDUPAMOJA_CONSTANTS.landingPageMenu.map((menuItem) => (
+            {menuItems.map((menuItem) => (
               <Link
                 href={menuItem.path}
                 {...(menuItem.section && {
@@ -42,7 +49,7 @@ const Menu = ({ orientation }: MenuProps) => {
     case "mobile":
       return (
         <div className="flex flex-col mt-10">
-          {EDUPAMOJA_CONSTANTS.landingPageMenu.map((menuItem) => (
+          {menuItems.map((menuItem) => (
             <Link
               href={menuItem.path}
               {...(menuItem.section && {
@@ -61,7 +68,7 @@ const Menu = ({ orientation }: MenuProps) => {
         </div>
       )
     default:
-      return <></>
+      return null
   }
 }
 

@@ -4,17 +4,22 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "clean": "rimraf node_modules/.prisma node_modules/.cache .next",
+    "prebuild": "npm run clean",
+    "generate": "prisma generate",
+    "postinstall": "npm run generate",
+    "build": "npm run generate && next build",
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write .",
-    "prepare": "husky"
+    "prepare": "husky",
+    "reset": "npm run clean && del package-lock.json && npm install"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.3.2",
     "@hookform/error-message": "^2.0.1",
     "@hookform/resolvers": "^3.9.0",
-    "@prisma/client": "^5.22.0",
+    "@prisma/client": "^6.9.0",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
@@ -63,10 +68,10 @@
     "next": "^15.0.0-rc.0",
     "next-themes": "^0.3.0",
     "novel": "^0.5.0",
-    "prisma": "^5.18.0",
-    "react": "^19.0.0-rc-a960b92c-20240819",
+    "prisma": "^6.9.0",
+    "react": "^18.2.0",
     "react-day-picker": "8.10.1",
-    "react-dom": "^19.0.0-rc-a960b92c-20240819",
+    "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.2",
     "react-redux": "^9.1.2",
     "react-resizable-panels": "^2.1.0",
@@ -84,15 +89,15 @@
     "@commitlint/cli": "^19.4.0",
     "@commitlint/config-conventional": "^19.2.2",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
     "eslint": "^8",
     "eslint-config-next": "^15.0.0-rc.0",
     "husky": "^9.1.5",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "typescript": "^5.8.3"
   },
   "engines": {
     "node": ">=18.0.0"

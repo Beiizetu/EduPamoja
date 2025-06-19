@@ -20,37 +20,39 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <ClerkProvider appearance={{
-      variables: {
-        colorPrimary: '#fff',
-        colorText: '#ffffff',
-        colorTextSecondary: '#9ca3af',
-        colorBackground: '#111827',
-        colorInputBackground: '#1f2937',
-        colorShimmer: 'rgba(255,255,255,0.36)',
-        fontFamily: 'Plus Jakarta Sans',
-      },
-      layout: {
-        logoImageUrl: '/logo.png',
-        logoPlacement: 'inside',
-        socialButtonsPlacement: 'bottom',
-        socialButtonsVariant: 'iconButton',
-        termsPageUrl: '/terms',
-        privacyPageUrl: '/privacy',
-      },
-      elements: {
-        card: {
-          boxShadow: '0 0 0 1px rgba(255,255,255,0.1)',
+    <ClerkProvider
+      appearance={{
+        variables: {
+          colorPrimary: "#fff",
+          colorText: "#ffffff",
+          colorTextSecondary: "#9ca3af",
+          colorBackground: "#111827",
+          colorInputBackground: "#1f2937",
+          colorShimmer: "rgba(255,255,255,0.36)",
+          fontFamily: "Plus Jakarta Sans",
         },
-        headerTitle: {
-          fontSize: '1.5rem',
-          fontWeight: '600',
+        layout: {
+          logoImageUrl: "/logo.png",
+          logoPlacement: "inside",
+          socialButtonsPlacement: "bottom",
+          socialButtonsVariant: "iconButton",
+          termsPageUrl: "/terms",
+          privacyPageUrl: "/privacy",
         },
-        headerSubtitle: {
-          opacity: 0.8,
+        elements: {
+          card: {
+            boxShadow: "0 0 0 1px rgba(255,255,255,0.1)",
+          },
+          headerTitle: {
+            fontSize: "1.5rem",
+            fontWeight: "600",
+          },
+          headerSubtitle: {
+            opacity: 0.8,
+          },
         },
-      }
-    }}>
+      }}
+    >
       <html lang="en" suppressHydrationWarning>
         <body className={`${jakarta.className} bg-black`}>
           <ThemeProvider

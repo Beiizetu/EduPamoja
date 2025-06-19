@@ -155,7 +155,7 @@ export const useChannelPage = (channelid: string) => {
     queryKey: ["channel-info", channelid],
     queryFn: async () => {
       const result = await onGetChannelInfo(channelid)
-      if (result && 'status' in result) {
+      if (result && "status" in result) {
         throw new Error(result.message)
       }
       return result as ChannelInfo

@@ -152,7 +152,9 @@ export const suggestionItems = createSuggestionItems([
           const file = input.files[0]
           try {
             if (!process.env.NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY) {
-              throw new Error('Uploadcare configuration missing - please set NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY')
+              throw new Error(
+                "Uploadcare configuration missing - please set NEXT_PUBLIC_UPLOAD_CARE_PUBLIC_KEY",
+              )
             }
             const uploaded = await upload.uploadFile(file)
             //This should return a src of the uploaded image
@@ -168,9 +170,9 @@ export const suggestionItems = createSuggestionItems([
               ])
             }
           } catch (error) {
-            console.error('File upload failed:', error)
-            toast('File upload unavailable', {
-              description: 'Image uploads are currently disabled'
+            console.error("File upload failed:", error)
+            toast("File upload unavailable", {
+              description: "Image uploads are currently disabled",
             })
           }
         }
